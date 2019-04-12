@@ -617,6 +617,7 @@ def get_time_sig_parts_np_from_folder(folderName, parts_for_surface, time_res, t
                 # make a padding matrix
                 padder = -1.0*np.ones((128, max_length-m.shape[1]))
                 all_matrices[i] = np.hstack( (m, padder) )
+                all_lengths[i] = all_lengths[i] + max_length-m.shape[1]
     
     all_matrices = np.hstack(all_matrices)
     
@@ -672,4 +673,4 @@ def get_time_sig_parts_np_from_folder(folderName, parts_for_surface, time_res, t
         print('max_pitch: ', max_pitch)
         all_matrices = all_matrices[ min_pitch:(max_pitch+1) , : ]
     
-    return all_matrices
+    return all_matrices, all_lengths

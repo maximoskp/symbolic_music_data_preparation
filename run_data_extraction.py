@@ -18,7 +18,7 @@ time_res = 16
 ts_num = 4
 ts_den = 4
 
-m, l = s2n.get_time_sig_parts_np_from_folder(folderName, parts_for_surface, time_res, ts_num, ts_den, print_progress=True, transpose=True, range_trim=True)
+m, l, minp, maxp = s2n.get_time_sig_parts_np_from_folder(folderName, parts_for_surface, time_res, ts_num, ts_den, print_progress=True, transpose=True, range_trim=True)
 
 # segments: array with 64-tuples of columns
 # segments = []
@@ -38,10 +38,14 @@ for i in range( int(m.shape[1]/step) ):
 serialised_segments = np.vstack( serialised_segments )
 serialised_segments = np.array( serialised_segments, dtype=np.float32 )
 
+os.makedirs( 'saved_data', exist_ok=True )
+
 # pickle data in two parts
 with open('saved_data' + os.sep + 'data_tower.pickle', 'wb') as handle:
     d = {}
     d['serialised_segments'] = serialised_segments
     d['rows'] = rows
     d['columns'] = columns
+    d['min_pitch'] = minp
+    d['max_pitch'] = maxp
     pickle.dump(d, handle, protocol=pickle.HIGHEST_PROTOCOL)

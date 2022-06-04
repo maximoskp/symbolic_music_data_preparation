@@ -673,4 +673,4 @@ def get_time_sig_parts_np_from_folder(folderName, parts_for_surface, time_res, t
         print('max_pitch: ', max_pitch)
         all_matrices = all_matrices[ min_pitch:(max_pitch+1) , : ]
     
-    return all_matrices, all_lengths
+    return all_matrices, all_lengths, min_pitch, max_pitch
